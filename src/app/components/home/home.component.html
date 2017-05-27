@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col s6">
+    <app-todo-list title="Project To Do" [todoList]="projectList"
+    (taskAdded)="onProjectTaskAdded($event)">
+    </app-todo-list>
+  </div>
+  <div class="col s6">
+    <app-todo-list title="Personal To Do" [todoList]="personalList"
+    (taskAdded)="onPersonalTaskAdded($event)">
+    </app-todo-list>
+  </div>
+</div>
