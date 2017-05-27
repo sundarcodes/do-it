@@ -13,6 +13,7 @@ import { TodoCardComponent } from './components/todo-card/todo-card.component';
 
 import { routes } from './app.routes';
 import { TodoService } from './services/todo.service';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TodoService } from './services/todo.service';
     HomeComponent,
     TodoListComponent,
     ArchiveComponent,
-    TodoCardComponent
+    TodoCardComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,
