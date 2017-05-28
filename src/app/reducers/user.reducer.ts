@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { User } from './../models/user';
 import { ActionTypes } from './../actions/user.actions';
 
-export type UserState = {
+export interface UserState {
     isAuthenticated: boolean;
     userDetail: User;
 }
@@ -32,3 +32,7 @@ export const userReducer = (state: UserState = initialState, action: Action) => 
 };
 
 export const getAuthStatus = (state: UserState) => state.isAuthenticated;
+export const getUserDetails = (state: UserState) => state.userDetail;
+export const getUserEmail = (state: UserState) => state.userDetail.email;
+export const getUserName = (state: UserState) => state.userDetail.name;
+export const getUserAvatar = (state: UserState) => state.userDetail.avatar;

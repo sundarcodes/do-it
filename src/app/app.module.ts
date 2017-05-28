@@ -16,7 +16,7 @@ import { UserEffects } from './effects/user.effects';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './components/landing/landing.component';
-import { Nav } from './components/nav/nav.component';
+import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { ArchiveComponent } from './components/archive/archive.component';
@@ -31,7 +31,7 @@ import { AuthResolve } from './services/auth.resolve';
 @NgModule({
   declarations: [
     AppComponent,
-    Nav,
+    NavComponent,
     HomeComponent,
     TodoListComponent,
     ArchiveComponent,

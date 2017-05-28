@@ -12,7 +12,10 @@ export const routes: Routes = [
     },
     {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
+        resolve: {
+            authData: AuthResolve
+        }
     },
     {
         path: 'archive',

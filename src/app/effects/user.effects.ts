@@ -14,8 +14,9 @@ export class UserEffects {
     .ofType(ActionTypes.LOGIN)
     .map((action: Action) => action.payload)
     .switchMap((provider: string) => this.authService.login(provider))
-    .do(x => console.log(x))
+    // .do(x => console.log(x))
     .map(res => {
+        console.log(res);
         if (res.user) {
             this.store.dispatch(this.userAction.loginSuccess({
                 uid: res.user.uid,
@@ -27,6 +28,11 @@ export class UserEffects {
             this.store.dispatch(this.userAction.login(null));
         }
     });
+
+    @Effect() logout$ = this.actions$
+    .ofType(ActionTypes.LOGOUT)
+    .map(() => this.authService.logout())
+    .map(() => this.store.dispatch(this.userAction.logoutSuccess()));
 
     constructor(private actions$: Actions, private authService: AuthService,
     private store: Store<AppState>, private userAction: UserActions) {}

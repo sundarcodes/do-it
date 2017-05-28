@@ -3,7 +3,11 @@
       <a [routerLink]="['home']" class="brand-logo">Do It</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li *ngIf="isLoggedIn$ | async"><a [routerLink]="['archive']">Archive</a></li>
-        <li><a href="badges.html">About</a></li>
+        <li *ngIf="!(isLoggedIn$ | async)"><a href="badges.html">About</a></li>
+        <li *ngIf="isLoggedIn$ | async"><a class="dropdown-button" data-activates="dropdown1" (click)="logout()">
+          {{userName$ | async}}
+          <img class="avatar" src='{{userPic$ | async}}'/>
+          </a></li>
       </ul>
     </div>
   </nav>
