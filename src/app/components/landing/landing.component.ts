@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router} from '@angular/router';
+
+import { Store } from '@ngrx/store';
+
+import { UserActions } from './../../actions/user.actions';
+import { AppState, getUserAuthStatus } from './../../reducers/app.state';
+
 
 @Component({
   selector: 'app-landing',
@@ -7,9 +14,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<AppState>, private userAction: UserActions,
+   private router: Router) { }
 
   ngOnInit() {
+    this.store.select(getUserAuthStatus)
+    .subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.router.navigate(['/home']);
+      }
+    });
+  }
+
+  loginWithGoogle() {
+    this.store.dispatch(this.userAction.login('google'));
   }
 
 }

@@ -2,11 +2,12 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { LandingComponent } from './components/landing/landing.component';
+import { AuthResolve } from './services/auth.resolve';
 
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'land',
         pathMatch: 'full'
     },
     {
@@ -19,6 +20,9 @@ export const routes: Routes = [
     },
     {
         path: 'land',
-        component: LandingComponent
+        component: LandingComponent,
+        resolve: {
+            authData: AuthResolve
+        }
     }
 ]

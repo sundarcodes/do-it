@@ -4,7 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+
+import { environment } from '../environments/environment';
+import { appReducer } from './reducers/app.state';
+import { UserEffects } from './effects/user.effects';
+
 import { AppComponent } from './app.component';
+import { LandingComponent } from './components/landing/landing.component';
 import { Nav } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
@@ -13,7 +24,9 @@ import { TodoCardComponent } from './components/todo-card/todo-card.component';
 
 import { routes } from './app.routes';
 import { TodoService } from './services/todo.service';
-import { LandingComponent } from './components/landing/landing.component';
+import { AuthService } from './services/auth.service';
+import { UserActions } from './actions/user.actions';
+import { AuthResolve } from './services/auth.resolve';
 
 @NgModule({
   declarations: [
@@ -29,9 +42,16 @@ import { LandingComponent } from './components/landing/landing.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    StoreModule.provideStore(appReducer),
+    StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
+    }),
+    EffectsModule.run(UserEffects)
   ],
-  providers: [ TodoService ],
+  providers: [ TodoService, AuthService, AuthResolve, UserActions ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
