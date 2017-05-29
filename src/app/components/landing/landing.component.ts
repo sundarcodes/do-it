@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router} from '@angular/router';
 
 import { Store } from '@ngrx/store';
@@ -12,13 +12,15 @@ import { AppState, getUserAuthStatus } from './../../reducers/app.state';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
+
+  subscription: any;
 
   constructor(private store: Store<AppState>, private userAction: UserActions,
    private router: Router) { }
 
   ngOnInit() {
-    this.store.select(getUserAuthStatus)
+    this.subscription = this.store.select(getUserAuthStatus)
     .subscribe(isAuthenticated => {
       if (isAuthenticated) {
         this.router.navigate(['/home']);
@@ -28,6 +30,12 @@ export class LandingComponent implements OnInit {
 
   loginWithGoogle() {
     this.store.dispatch(this.userAction.login('google'));
+  }
+
+  ngOnDestroy() {
+      if (this.subscription) {
+          this.subscription.unsubscribe();
+      }
   }
 
 }

@@ -4,7 +4,7 @@ import { combineReducers } from '@ngrx/store';
 import { createSelector } from 'reselect';
 
 import { UserState, userReducer, getAuthStatus, getUserDetails,
-     getUserAvatar, getUserEmail, getUserName } from './user.reducer';
+    } from './user.reducer';
 
 
 // Entire state of App
@@ -24,7 +24,4 @@ export const userState = (appState: AppState) => {
 };
 export const getUserAuthStatus = createSelector(userState, getAuthStatus);
 export const getUserDetail = createSelector(userState, getUserDetails);
-export const getUserPic = createSelector(userState, getUserAvatar);
-export const getUserMail = createSelector(userState, getUserEmail);
-export const getUserDisplayName = createSelector(userState, getUserName);
 

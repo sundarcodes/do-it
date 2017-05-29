@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
@@ -51,7 +53,7 @@ import { AuthResolve } from './services/auth.resolve';
     }),
     EffectsModule.run(UserEffects)
   ],
-  providers: [ TodoService, AuthService, AuthResolve, UserActions ],
+  providers: [ TodoService, AuthService, AuthResolve, UserActions, AngularFireDatabase ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

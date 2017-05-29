@@ -5,8 +5,8 @@
         <li *ngIf="isLoggedIn$ | async"><a [routerLink]="['archive']">Archive</a></li>
         <li *ngIf="!(isLoggedIn$ | async)"><a href="badges.html">About</a></li>
         <li *ngIf="isLoggedIn$ | async"><a class="dropdown-button" data-activates="dropdown1" (click)="logout()">
-          {{userName$ | async}}
-          <img class="avatar" src='{{userPic$ | async}}'/>
+          {{(userDetail$ | async)?.name}}
+          <img class="avatar" src='{{(userDetail$ | async)?.avatar}}'/>
           </a></li>
       </ul>
     </div>

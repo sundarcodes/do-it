@@ -19,9 +19,10 @@ export class AuthResolve implements Resolve<any> {
   private userActions: UserActions) {}
 
   resolve(route: ActivatedRouteSnapshot) {
+    //   console.log('in resolve');
     return this.authService.user
+    // .do (x => console.log(x))
     .map(user => {
-        console.log(user);
         if (user) {
             this.store.dispatch(this.userActions.loginSuccess({
                 uid: user.uid,

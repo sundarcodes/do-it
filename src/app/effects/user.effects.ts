@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { AppState } from './../reducers/app.state';
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
@@ -14,25 +15,35 @@ export class UserEffects {
     .ofType(ActionTypes.LOGIN)
     .map((action: Action) => action.payload)
     .switchMap((provider: string) => this.authService.login(provider))
-    // .do(x => console.log(x))
-    .map(res => {
-        console.log(res);
+    .do(x => console.log(x))
+    .switchMap(res => {
         if (res.user) {
-            this.store.dispatch(this.userAction.loginSuccess({
+            return Observable.of(this.userAction.loginSuccess({
                 uid: res.user.uid,
                 name: res.user.providerData[0].displayName,
                 email:  res.user.providerData[0].email,
                 avatar: res.user.providerData[0].photoURL
                 }));
         } else {
-            this.store.dispatch(this.userAction.login(null));
+            return Observable.of(this.userAction.login(null));
         }
     });
 
-    @Effect() logout$ = this.actions$
+  @Effect() loginSuccess$ = this.actions$
+    .ofType(ActionTypes.LOGIN_SUCCESS)
+    .map((action: Action) => action.payload)
+    .switchMap((user) => this.authService.registerUser(user));
+
+
+  @Effect() logout$ = this.actions$
     .ofType(ActionTypes.LOGOUT)
     .map(() => this.authService.logout())
-    .map(() => this.store.dispatch(this.userAction.logoutSuccess()));
+    .switchMap(() => Observable.of(this.userAction.logoutSuccess()));
+
+ @Effect() registerUser$ = this.actions$
+    .ofType(ActionTypes.REGISTER_USER)
+    .map((action: Action) => this.authService.logout())
+    .switchMap(() => Observable.of(this.userAction.logoutSuccess()));
 
     constructor(private actions$: Actions, private authService: AuthService,
     private store: Store<AppState>, private userAction: UserActions) {}
