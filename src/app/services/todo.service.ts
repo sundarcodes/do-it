@@ -1,24 +1,43 @@
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Http } from '@angular/http';
 import { Todo } from './../models/todo';
 
-// declare var _: any;
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/observable/from';
+
 import * as _ from 'lodash';
 
 @Injectable()
 export class TodoService {
 
-  baseURL: string = 'https://doit-5db57.firebaseio.com/todo';
+  // baseURL: string = 'https://doit-5db57.firebaseio.com/todo';
 
+  baseURL = environment.firebase.databaseURL;
   private todoListSub: BehaviorSubject<Todo[]>;
   public todoList$: Observable<Todo[]>;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private afDb: AngularFireDatabase) {
     this.todoListSub = new BehaviorSubject([]);
     this.todoList$ = this.todoListSub.asObservable();
-    this.fetchAllTodos();
+    // this.fetchAllTodos();
+   }
+
+   fetchTodosForUserId(userId) {
+     console.log(userId);
+     return this.afDb.list('/users')
+     .do(x => console.log(x))
+     .switchMap(usersList => Observable.from(usersList))
+     .filter((user: any) => user.$key === userId)
+     .do(x => console.log(x))
+     .map(user => user.todos || []);
+   }
+
+   addTodo(userId, todo: Todo) {
+     return this.afDb.list(`/users/${userId}/todos`).push(todo);
    }
 
    fetchAllTodos() {

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { User } from './../models/user';
-import { ActionTypes } from './../actions/user.actions';
+import { UserActionTypes } from './../actions/user.actions';
 
 export interface UserState {
     isAuthenticated: boolean;
@@ -14,13 +14,13 @@ const initialState: UserState = {
 
 export const userReducer = (state: UserState = initialState, action: Action) => {
     switch(action.type) {
-        case ActionTypes.LOGIN_SUCCESS:{
+        case UserActionTypes.LOGIN_SUCCESS:{
             const newState = Object.assign({}, state);
             newState.isAuthenticated = true;
             newState.userDetail = action.payload;
             return newState;
         }
-        case ActionTypes.LOGOUT_SUCCESS: {
+        case UserActionTypes.LOGOUT_SUCCESS: {
             const newState = Object.assign({}, state);
             newState.isAuthenticated = false;
             newState.userDetail = null;

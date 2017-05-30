@@ -1,7 +1,7 @@
 import { User } from './../models/user';
 import { Action } from '@ngrx/store';
 
-export const ActionTypes = {
+export const UserActionTypes = {
     LOGIN: 'LOGIN',
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     LOGIN_FAILURE: 'LOGIN_FAILURE',
@@ -14,34 +14,34 @@ export class UserActions {
 
     login(data): Action {
         return {
-            type: ActionTypes.LOGIN,
+            type: UserActionTypes.LOGIN,
             payload: data
         };
     }
 
     loginSuccess(resp): Action {
         return {
-            type: ActionTypes.LOGIN_SUCCESS,
+            type: UserActionTypes.LOGIN_SUCCESS,
             payload: resp
         };
     }
 
     logout(): Action {
         return {
-            type: ActionTypes.LOGOUT
+            type: UserActionTypes.LOGOUT
         };
     }
 
 
     logoutSuccess(): Action {
         return {
-            type: ActionTypes.LOGOUT_SUCCESS
+            type: UserActionTypes.LOGOUT_SUCCESS
         };
     }
 
     registerUser(user: User): Action {
         return {
-            type: ActionTypes.REGISTER_USER,
+            type: UserActionTypes.REGISTER_USER,
             payload: user
         };
     }

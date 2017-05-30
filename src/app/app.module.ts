@@ -1,3 +1,5 @@
+import { TodoActions } from './actions/todo.actions';
+import { TodoEffects } from './effects/todo.effects';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -51,9 +53,11 @@ import { AuthResolve } from './services/auth.resolve';
     StoreDevtoolsModule.instrumentOnlyWithExtension({
       maxAge: 5
     }),
-    EffectsModule.run(UserEffects)
+    EffectsModule.run(UserEffects),
+    EffectsModule.run(TodoEffects)
   ],
-  providers: [ TodoService, AuthService, AuthResolve, UserActions, AngularFireDatabase ],
+  providers: [ TodoService, AuthService, AuthResolve, UserActions, 
+  AngularFireDatabase, TodoActions ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

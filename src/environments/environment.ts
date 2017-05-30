@@ -8,7 +8,7 @@ export const environment = {
   firebase: {
     apiKey: 'AIzaSyD-iDbImn1RzPqIKj1BSrJ4BDVdRmQeGJI',
     authDomain: 'do-it-cee9f.firebaseapp.com',
-    databaseURL: 'https://do-it-cee9f.firebaseio.com/',
+    databaseURL: 'https://do-it-cee9f.firebaseio.com',
     projectId: 'do-it-cee9f',
     storageBucket: 'gs://do-it-cee9f.appspot.com',
     messagingSenderId: '1067549360604'

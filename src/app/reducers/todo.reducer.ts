@@ -1,4 +1,4 @@
-import { ActionTypes } from './../actions/todo.actions';
+import { TodoActionTypes } from './../actions/todo.actions';
 import { Action } from '@ngrx/store';
 import { Todo } from './../models/todo';
 
@@ -13,7 +13,7 @@ const initialState: TodoState = {
 
 export const todoReducer = (state: TodoState = initialState, action: Action) => {
     switch(action.type) {
-        case ActionTypes.LOAD_CURRENT_USER_TODOS_SUCCESS: {
+        case TodoActionTypes.LOAD_CURRENT_USER_TODOS_SUCCESS: {
             const newState = Object.assign({}, state);
             newState.currentUserTodoList = action.payload;
             return newState;
